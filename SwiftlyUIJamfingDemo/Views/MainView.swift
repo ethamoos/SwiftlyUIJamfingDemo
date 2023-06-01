@@ -25,7 +25,7 @@ struct MainView: View {
                 NavigationView {
                     List(networkController.computers, id: \.self, selection: $selection) { computer in
                         
-                        NavigationLink(destination: MainViewDetailed(server: server, user: user,password: password, selectedResourceType: selectedResourceType)) {
+                        NavigationLink(destination: MainViewDetailed(server: server, user: user,password: password, computer: computer, selectedResourceType: selectedResourceType)) {
                             
                             HStack {
                                 Image(systemName: "desktopcomputer")

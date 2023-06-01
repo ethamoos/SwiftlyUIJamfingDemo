@@ -11,7 +11,8 @@ struct MainViewDetailed: View {
     var server: String
     var user: String
     var password: String
-    
+    @State var computer: Computer
+
     
     var selectedResourceType: ResourceType
 
@@ -19,8 +20,8 @@ struct MainViewDetailed: View {
     
 var body: some View {
     VStack(alignment: .leading) {
-//        Text("Computer Name:\(selectedResourceType.name)")
-//        Text("Computer ID:\(String(selectedResourceType.id))")
+        Text("Computer Name:\(computer.name)")
+        Text("Computer ID:\(String(computer.id))")
 
 
         
