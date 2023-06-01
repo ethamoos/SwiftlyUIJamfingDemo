@@ -18,7 +18,7 @@ struct MainViewDetailed: View {
 
     
 var body: some View {
-    VStack(alignment: .leading, spacing: 2.0) {
+    VStack(alignment: .leading) {
         Text("Computer Name:\(computer.name)")
             .padding()
         Text("Computer ID:\(String(computer.id))")
@@ -26,8 +26,7 @@ var body: some View {
 
     }
 //    .multilineTextAlignment(.leading)
-    .padding(.trailing, 10.0)
-    .frame(width: 200.0)    }
+    .padding()    }
 }
 
 
