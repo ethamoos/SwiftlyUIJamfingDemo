@@ -14,6 +14,13 @@
 		A8CB02D02A288A4900C888B2 /* SwiftlyUIJamfingDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CB02CF2A288A4900C888B2 /* SwiftlyUIJamfingDemoTests.swift */; };
 		A8CB02DA2A288A4900C888B2 /* SwiftlyUIJamfingDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CB02D92A288A4900C888B2 /* SwiftlyUIJamfingDemoUITests.swift */; };
 		A8CB02DC2A288A4900C888B2 /* SwiftlyUIJamfingDemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CB02DB2A288A4900C888B2 /* SwiftlyUIJamfingDemoUITestsLaunchTests.swift */; };
+		A8CB02F02A288B9C00C888B2 /* JamfBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CB02EF2A288B9C00C888B2 /* JamfBrain.swift */; };
+		A8CB02F22A288BA800C888B2 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CB02F12A288BA800C888B2 /* Resources.swift */; };
+		A8CB02F42A288BB400C888B2 /* ResourcesEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CB02F32A288BB400C888B2 /* ResourcesEnums.swift */; };
+		A8FFC06E2A28948500852FD9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FFC06D2A28948500852FD9 /* LoginView.swift */; };
+		A8FFC0702A28948E00852FD9 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FFC06F2A28948E00852FD9 /* OptionsView.swift */; };
+		A8FFC0722A2894AD00852FD9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FFC0712A2894AD00852FD9 /* MainView.swift */; };
+		A8FFC0742A2894B900852FD9 /* MainViewDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FFC0732A2894B900852FD9 /* MainViewDetailed.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +52,13 @@
 		A8CB02D52A288A4900C888B2 /* SwiftlyUIJamfingDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftlyUIJamfingDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8CB02D92A288A4900C888B2 /* SwiftlyUIJamfingDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftlyUIJamfingDemoUITests.swift; sourceTree = "<group>"; };
 		A8CB02DB2A288A4900C888B2 /* SwiftlyUIJamfingDemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftlyUIJamfingDemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A8CB02EF2A288B9C00C888B2 /* JamfBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JamfBrain.swift; sourceTree = "<group>"; };
+		A8CB02F12A288BA800C888B2 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		A8CB02F32A288BB400C888B2 /* ResourcesEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesEnums.swift; sourceTree = "<group>"; };
+		A8FFC06D2A28948500852FD9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A8FFC06F2A28948E00852FD9 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
+		A8FFC0712A2894AD00852FD9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		A8FFC0732A2894B900852FD9 /* MainViewDetailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewDetailed.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +110,9 @@
 			isa = PBXGroup;
 			children = (
 				A8CB02BD2A288A4100C888B2 /* SwiftlyUIJamfingDemoApp.swift */,
-				A8CB02BF2A288A4100C888B2 /* ContentView.swift */,
+				A8CB02EA2A288B2600C888B2 /* Controller */,
+				A8CB02E92A288B2000C888B2 /* Model */,
+				A8CB02E82A288B1400C888B2 /* Views */,
 				A8CB02C12A288A4800C888B2 /* Assets.xcassets */,
 				A8CB02C32A288A4800C888B2 /* SwiftlyUIJamfingDemo.entitlements */,
 				A8CB02C42A288A4800C888B2 /* Preview Content */,
@@ -127,6 +143,35 @@
 				A8CB02DB2A288A4900C888B2 /* SwiftlyUIJamfingDemoUITestsLaunchTests.swift */,
 			);
 			path = SwiftlyUIJamfingDemoUITests;
+			sourceTree = "<group>";
+		};
+		A8CB02E82A288B1400C888B2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A8CB02BF2A288A4100C888B2 /* ContentView.swift */,
+				A8FFC06D2A28948500852FD9 /* LoginView.swift */,
+				A8FFC06F2A28948E00852FD9 /* OptionsView.swift */,
+				A8FFC0712A2894AD00852FD9 /* MainView.swift */,
+				A8FFC0732A2894B900852FD9 /* MainViewDetailed.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A8CB02E92A288B2000C888B2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A8CB02F12A288BA800C888B2 /* Resources.swift */,
+				A8CB02F32A288BB400C888B2 /* ResourcesEnums.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A8CB02EA2A288B2600C888B2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A8CB02EF2A288B9C00C888B2 /* JamfBrain.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +304,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8CB02F02A288B9C00C888B2 /* JamfBrain.swift in Sources */,
+				A8FFC0722A2894AD00852FD9 /* MainView.swift in Sources */,
+				A8FFC06E2A28948500852FD9 /* LoginView.swift in Sources */,
+				A8FFC0742A2894B900852FD9 /* MainViewDetailed.swift in Sources */,
 				A8CB02C02A288A4100C888B2 /* ContentView.swift in Sources */,
+				A8FFC0702A28948E00852FD9 /* OptionsView.swift in Sources */,
+				A8CB02F42A288BB400C888B2 /* ResourcesEnums.swift in Sources */,
 				A8CB02BE2A288A4100C888B2 /* SwiftlyUIJamfingDemoApp.swift in Sources */,
+				A8CB02F22A288BA800C888B2 /* Resources.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
