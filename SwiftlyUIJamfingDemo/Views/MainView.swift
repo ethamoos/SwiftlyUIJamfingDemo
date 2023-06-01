@@ -4,6 +4,7 @@
 //
 //  Created by Amos Deane on 01/06/2023.
 //
+
 import SwiftUI
 
 struct MainView: View {
@@ -28,7 +29,8 @@ struct MainView: View {
                         NavigationLink(destination: MainViewDetailed(server: server, user: user,password: password, computer: computer, selectedResourceType: selectedResourceType)) {
                             
                             HStack {
-                                Image(systemName: "desktopcomputer")
+//                                Image(systemName: "laptopcomputer")
+                                Image(systemName: "apple.logo")
                                 Text(computer.name).font(.system(size: 12.0)).foregroundColor(.black)
                             }
                         }
