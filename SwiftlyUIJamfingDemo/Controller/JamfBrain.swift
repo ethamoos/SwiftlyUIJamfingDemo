@@ -74,7 +74,6 @@ class JamfBrain: ObservableObject {
         }
     }
     
-    
     func debugSomething(dataThing: Any) {
         print("Printing out:\(dataThing)")
     }
@@ -167,8 +166,7 @@ class JamfBrain: ObservableObject {
                 print("Running request")
                 //                print("request data is:")
                 //                print(String(data: data, encoding: .utf8)!)
-                
-                
+                        
                 self.doubleSeparationLine()
                 print("Doing processing of request")
                 
@@ -193,6 +191,73 @@ class JamfBrain: ObservableObject {
         DispatchQueue.main.async {
             self.computers = computers
             self.status = "Computers retrieved"
+        }
+    }
+    
+    
+    static func loadFileAsync(url: URL, user: String, password: String, completion: @escaping (String?, Error?) -> Void)
+    {
+        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        print("documentsUrl is:\(documentsUrl)")
+
+        let destinationUrl = documentsUrl.appendingPathComponent(url.lastPathComponent)
+        print("destinationUrl is:\(destinationUrl)")
+
+        if FileManager().fileExists(atPath: destinationUrl.path)
+        {
+            print("File already exists [\(destinationUrl.path)]")
+            completion(destinationUrl.path, nil)
+        }
+        else
+        {
+            let session = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: nil)
+           
+            
+            let loginData = "\(user):\(password)".data(using: String.Encoding.utf8)
+            let base64LoginString = loginData!.base64EncodedString()
+            let headers = [
+                "Accept": "application/json",
+                "Authorization": "Basic \(base64LoginString)"
+            ]
+            
+            var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+            request.allHTTPHeaderFields = headers
+            request.httpMethod = "GET"
+            
+            
+            let task = session.dataTask(with: request, completionHandler:
+                                            {
+                data, response, error in
+                if error == nil
+                {
+                    if let response = response as? HTTPURLResponse
+                    {
+                        if response.statusCode == 200
+                        {
+                            if let data = data
+                            {
+                                if let _ = try? data.write(to: destinationUrl, options: Data.WritingOptions.atomic)
+                                {
+                                    completion(destinationUrl.path, error)
+                                }
+                                else
+                                {
+                                    completion(destinationUrl.path, error)
+                                }
+                            }
+                            else
+                            {
+                                completion(destinationUrl.path, error)
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    completion(destinationUrl.path, error)
+                }
+            })
+            task.resume()
         }
     }
 }

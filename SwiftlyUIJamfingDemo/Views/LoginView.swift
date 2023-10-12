@@ -20,7 +20,7 @@ struct LoginView: View {
     @Binding var showLoginScreen: Bool
     
     //    List possible outcomes - the . refers to the cases of the enum ResourceType
-    let resourceCaseList = [ ResourceType.computer]
+    let resourceCaseList = [ ResourceType.computer, ResourceType.computerDetailed]
     
     @AppStorage("server") var server = ""
     @AppStorage("user") var user = ""

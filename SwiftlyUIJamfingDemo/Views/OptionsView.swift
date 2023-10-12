@@ -17,6 +17,7 @@ struct OptionsView: View {
     var server: String
     var user: String
     var password: String
+    
     @Binding var selectedResourceType: ResourceType
     
   

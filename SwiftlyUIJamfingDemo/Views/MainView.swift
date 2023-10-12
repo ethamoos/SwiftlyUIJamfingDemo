@@ -15,6 +15,7 @@ struct MainView: View {
     @State var password: String
     @State var computers: [Computer] = []
     @State var selection: [Computer] = []
+    var testing: String = ""
     
     @EnvironmentObject var networkController: JamfBrain
         
@@ -22,14 +23,14 @@ struct MainView: View {
         
         VStack(alignment: .leading) {
             
+            
             if networkController.computers.count > 0 {
                 NavigationView {
                     List(networkController.computers, id: \.self, selection: $selection) { computer in
                         
-                        NavigationLink(destination: MainViewDetailed(server: server, user: user,password: password, computer: computer, selectedResourceType: selectedResourceType)) {
+                        NavigationLink(destination: MainViewDetailed(server: server, user: user,password: password, computer: computer)) {
                             
                             HStack {
-//                                Image(systemName: "laptopcomputer")
                                 Image(systemName: "apple.logo")
                                 Text(computer.name).font(.system(size: 12.0)).foregroundColor(.black)
                             }
@@ -37,7 +38,7 @@ struct MainView: View {
                     }
                     
                     Text("\(networkController.computers.count) total computers")
-        
+                            
                 }
                 .navigationViewStyle(DefaultNavigationViewStyle())
             } else {
