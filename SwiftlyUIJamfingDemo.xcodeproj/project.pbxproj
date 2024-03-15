@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A83F1D512BA4D1B6008D9D5B /* ComputersBasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F1D502BA4D1B6008D9D5B /* ComputersBasicView.swift */; };
+		A83F1D532BA4D2A3008D9D5B /* ComputersBasicDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F1D522BA4D2A3008D9D5B /* ComputersBasicDetailedView.swift */; };
 		A8CB02BE2A288A4100C888B2 /* SwiftlyUIJamfingDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CB02BD2A288A4100C888B2 /* SwiftlyUIJamfingDemoApp.swift */; };
 		A8CB02C02A288A4100C888B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CB02BF2A288A4100C888B2 /* ContentView.swift */; };
 		A8CB02C22A288A4800C888B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8CB02C12A288A4800C888B2 /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A83F1D502BA4D1B6008D9D5B /* ComputersBasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputersBasicView.swift; sourceTree = "<group>"; };
+		A83F1D522BA4D2A3008D9D5B /* ComputersBasicDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputersBasicDetailedView.swift; sourceTree = "<group>"; };
 		A8CB02BA2A288A4100C888B2 /* SwiftlyUIJamfingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftlyUIJamfingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8CB02BD2A288A4100C888B2 /* SwiftlyUIJamfingDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftlyUIJamfingDemoApp.swift; sourceTree = "<group>"; };
 		A8CB02BF2A288A4100C888B2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -149,6 +153,8 @@
 			isa = PBXGroup;
 			children = (
 				A8CB02BF2A288A4100C888B2 /* ContentView.swift */,
+				A83F1D502BA4D1B6008D9D5B /* ComputersBasicView.swift */,
+				A83F1D522BA4D2A3008D9D5B /* ComputersBasicDetailedView.swift */,
 				A8FFC06D2A28948500852FD9 /* LoginView.swift */,
 				A8FFC06F2A28948E00852FD9 /* OptionsView.swift */,
 				A8FFC0712A2894AD00852FD9 /* MainView.swift */,
@@ -238,7 +244,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					A8CB02B92A288A4100C888B2 = {
 						CreatedOnToolsVersion = 14.2;
@@ -310,9 +316,11 @@
 				A8FFC0742A2894B900852FD9 /* MainViewDetailed.swift in Sources */,
 				A8CB02C02A288A4100C888B2 /* ContentView.swift in Sources */,
 				A8FFC0702A28948E00852FD9 /* OptionsView.swift in Sources */,
+				A83F1D512BA4D1B6008D9D5B /* ComputersBasicView.swift in Sources */,
 				A8CB02F42A288BB400C888B2 /* ResourcesEnums.swift in Sources */,
 				A8CB02BE2A288A4100C888B2 /* SwiftlyUIJamfingDemoApp.swift in Sources */,
 				A8CB02F22A288BA800C888B2 /* Resources.swift in Sources */,
+				A83F1D532BA4D2A3008D9D5B /* ComputersBasicDetailedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,9 +390,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -440,9 +450,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -466,6 +478,7 @@
 				CODE_SIGN_ENTITLEMENTS = SwiftlyUIJamfingDemo/SwiftlyUIJamfingDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftlyUIJamfingDemo/Preview Content\"";
 				DEVELOPMENT_TEAM = T8LP25947P;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -504,6 +517,7 @@
 				CODE_SIGN_ENTITLEMENTS = SwiftlyUIJamfingDemo/SwiftlyUIJamfingDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftlyUIJamfingDemo/Preview Content\"";
 				DEVELOPMENT_TEAM = T8LP25947P;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -541,6 +555,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = T8LP25947P;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
@@ -564,6 +579,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = T8LP25947P;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
@@ -586,6 +602,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = T8LP25947P;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
@@ -608,6 +625,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = T8LP25947P;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;

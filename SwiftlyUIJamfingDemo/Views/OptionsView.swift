@@ -34,6 +34,10 @@ struct OptionsView: View {
                                 Text("Computers")
                             }
                             
+                            NavigationLink(destination: ComputersBasicView(selectedResourceType: ResourceType.computer, server: server, user: user, password: password)) {
+                                Text("Computers Basic")
+                            }
+                            
                             NavigationLink(destination: MainView(selectedResourceType: ResourceType.computer, server: server, user: user, password: password)) {
                                 Text("Show")
                             }

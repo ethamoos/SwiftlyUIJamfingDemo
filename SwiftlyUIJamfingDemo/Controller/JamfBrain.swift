@@ -232,13 +232,6 @@ class JamfBrain: ObservableObject {
             
             self.allComputersBasicDict = self.allComputersBasic.computers
         }
-        //        DispatchQueue.main.async {
-        //
-        //            self.allComputersBasic = allComputersBasic
-        //            self.allComputersBasicDict = allComputersBasic
-        ////            self.status = "Categories retrieved"
-        //
-        //        }
     }
 }
 

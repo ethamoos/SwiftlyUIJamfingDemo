@@ -10,6 +10,8 @@ import Foundation
 
 enum ResourceType {
     case computer
+    case computerBasic
+
 
 }
 
@@ -20,6 +22,8 @@ func getURLFormat(data: ResourceType) -> String {
     switch data {
     case .computer:
         return "computers"
+    case .computerBasic:
+        return "computers"
     }
 }
 
@@ -29,6 +33,8 @@ func getProcessFormat(data: ResourceType) -> String {
     
     switch data {
     case .computer:
+        return "process"    
+    case .computerBasic:
         return "process"
     }
 }
@@ -41,7 +47,9 @@ func getReplyString(data: ResourceType) -> String {
     
     switch data {
     case .computer:
-        return "ComputersReply"
+        return "ComputersReply"    
+    case .computerBasic:
+        return "ComputerBasicReply"
         
     }
 }
@@ -55,6 +63,10 @@ func getSingleInstanceString(data: ResourceType) -> String {
     switch data {
     case .computer:
         return "Computer"
+        
+    case .computerBasic:
+        return "ComputerBasic"
+        
     }
 }
 
@@ -67,7 +79,9 @@ func getReceivedString(data: ResourceType) -> String {
     switch data {
     case .computer:
         return "receivedComputers"
-        
+    case .computerBasic:
+        return "receivedComputerBasic"
+      
     }
 }
 
