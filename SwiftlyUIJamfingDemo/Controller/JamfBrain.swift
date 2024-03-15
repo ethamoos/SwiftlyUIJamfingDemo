@@ -15,6 +15,13 @@ class JamfBrain: ObservableObject {
     @Published var authToken = ""
     @Published var computers: [Computer] = []
     
+    @Published var computersBasic: [Computers.ComputerResponse] = []
+    @Published var allComputersBasic: ComputerBasic = ComputerBasic(computers: [])
+//  var teams = [String: String]()
+//        @Published var allComputersBasicDict = [ComputerBasicRecord: ComputerBasicRecord]()
+        @Published var allComputersBasicDict = [ComputerBasicRecord]()
+
+    
     enum NetError: Error {
         case couldntEncodeNamePass
         case badResponseCode
@@ -194,6 +201,44 @@ class JamfBrain: ObservableObject {
             self.computers = computers
             self.status = "Computers retrieved"
         }
+    }
+    
+    func getComputersBasic(server: String) async throws {
+        let jamfURLQuery = server + "/JSSResource/computers/subset/basic"
+        
+        let url = URL(string: jamfURLQuery)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        separationLine()
+        print("Running func: getComputersBasic")
+        print("jamfURLQuery is: \(jamfURLQuery)")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            print("Code not 200")
+            throw NetError.badResponseCode
+        }
+        separationLine()
+        print("processDetail Json data as text is:")
+        print(String(data: data, encoding: .utf8)!)
+        let decoder = JSONDecoder()
+        
+        
+        self.allComputersBasic = try decoder.decode(ComputerBasic.self, from: data)
+        
+        DispatchQueue.main.async {
+            
+            self.allComputersBasicDict = self.allComputersBasic.computers
+        }
+        //        DispatchQueue.main.async {
+        //
+        //            self.allComputersBasic = allComputersBasic
+        //            self.allComputersBasicDict = allComputersBasic
+        ////            self.status = "Categories retrieved"
+        //
+        //        }
     }
 }
 
