@@ -22,20 +22,22 @@ struct ContentView: View {
     @AppStorage("user") var user = ""
     @AppStorage("password") var password = ""
 
-    @State var showLoginScreen = true
+    @State var showLoginScreen: Bool
     
     var body: some View {
+        
+        
         if showLoginScreen {
             LoginView(selectedResourceType: $selectedResourceType, showLoginScreen: $showLoginScreen)
         } else {
-            OptionsView(server: server, user: user, password: password, selectedResourceType: $selectedResourceType )
+            OptionsView(server: server, user: user, password: password, selectedResourceType: $selectedResourceType, showLoginScreen: false )
         }
     }
 }
 
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

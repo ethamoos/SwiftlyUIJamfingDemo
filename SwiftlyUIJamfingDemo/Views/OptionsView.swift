@@ -19,41 +19,51 @@ struct OptionsView: View {
     var password: String
     @Binding var selectedResourceType: ResourceType
     
+    @State var showLoginScreen: Bool
+    
   
     var body: some View {
         
-        VStack {
+        if !showLoginScreen {
             
-            if networkController.computers.count > 0 {
+            
+            VStack {
                 
-                NavigationView {
-                    List {
-                        Section("Options") {
-                            
-                            NavigationLink(destination: MainView(selectedResourceType: ResourceType.computer, server: server, user: user, password: password)) {
-                                Text("Computers")
-                            }
-                            
-                            NavigationLink(destination: ComputersBasicView(selectedResourceType: ResourceType.computer, server: server, user: user, password: password)) {
-                                Text("Computers Basic")
-                            }
-                            
-                            NavigationLink(destination: MainView(selectedResourceType: ResourceType.computer, server: server, user: user, password: password)) {
-                                Text("Show")
-                            }
-                            
-                            
-                            NavigationLink(destination: ContentView(selectedResourceType: selectedResourceType, server: server, user: user, password: password)) {
-                                Text("Login")
+                
+                
+                if networkController.computers.count > 0 {
+                    
+                    NavigationView {
+                        List {
+                            Section("Options") {
+                                
+                                NavigationLink(destination: MainView(selectedResourceType: ResourceType.computer, server: server, user: user, password: password)) {
+                                    Text("Computers")
+                                }
+                                
+                                NavigationLink(destination: ComputersBasicView(selectedResourceType: ResourceType.computer, server: server, user: user, password: password)) {
+                                    Text("Computers Basic")
+                                }
+                                
+                                //                            NavigationLink(destination: MainView(selectedResourceType: ResourceType.computer, server: server, user: user, password: password)) {
+                                //                                Text("Show")
+                                //                            }
+                                
+                                
+                                NavigationLink(destination: ContentView(selectedResourceType: selectedResourceType, server: server, user: user, password: password, showLoginScreen: true
+                                                                       )) {
+                                    Text("Login")
+                                }
                             }
                         }
                     }
                 }
+                //            }
             }
-        }
-        .listStyle(.sidebar)
-        .onAppear {
-            handleConnect(resourceType: selectedResourceType)
+            .listStyle(.sidebar)
+            .onAppear {
+                handleConnect(resourceType: selectedResourceType)
+            }
         }
     }
     

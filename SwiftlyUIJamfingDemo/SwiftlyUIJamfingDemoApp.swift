@@ -21,7 +21,7 @@ struct SwiftlyUIJamfingDemoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(showLoginScreen: true)
                 .environmentObject(networkController)
         }
     }
