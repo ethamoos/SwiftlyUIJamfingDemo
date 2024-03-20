@@ -32,7 +32,7 @@ struct ComputersBasicView: View {
                             }
                         }
                     }
-                    Text("\(networkController.computers.count) total computers")
+                    Text("\(networkController.allComputersBasic.computers.count) total computers")
                 }
                 .navigationViewStyle(DefaultNavigationViewStyle())
             } else {

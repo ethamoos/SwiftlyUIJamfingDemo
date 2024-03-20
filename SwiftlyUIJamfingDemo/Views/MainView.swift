@@ -22,21 +22,20 @@ struct MainView: View {
         
         VStack(alignment: .leading) {
             
-            if networkController.computers.count > 0 {
+            if networkController.allComputers.count > 0 {
                 NavigationView {
-                    List(networkController.computers, id: \.self, selection: $selection) { computer in
+                    List(networkController.allComputers, id: \.self, selection: $selection) { computer in
                         
                         NavigationLink(destination: MainViewDetailed(server: server, user: user,password: password, computer: computer, selectedResourceType: selectedResourceType)) {
                             
                             HStack {
-//                                Image(systemName: "laptopcomputer")
                                 Image(systemName: "apple.logo")
                                 Text(computer.name).font(.system(size: 12.0)).foregroundColor(.black)
                             }
                         }
                     }
                     
-                    Text("\(networkController.computers.count) total computers")
+                    Text("\(networkController.allComputers.count) total computers")
         
                 }
                 .navigationViewStyle(DefaultNavigationViewStyle())
@@ -52,16 +51,29 @@ struct MainView: View {
         .frame(width: 800, height: 500, alignment: .leading)
         .onAppear {
             print("ComputerView appeared. Running onAppear")
-            print("\(selectedResourceType) View appeared - connecting")
-            print("Searching for \(selectedResourceType)")
-            handleConnect(resourceType: ResourceType.computer)
-            computers = networkController.computers
+//            print("\(selectedResourceType) View appeared - connecting")
+//            print("Searching for \(selectedResourceType)")
+//            handleConnect(resourceType: ResourceType.computer)
+//            computers = networkController.computers
+            
+            Task {
+                
+                do {
+                    try await networkController.getToken(server: server, user: user, password: password)
+                    try await networkController.getComputers(server: server)
+                } catch {
+                    print("Error fetching computers")
+                    print(error)
+                }
+            }
+            
+            
         }
     }
     
-    func handleConnect(resourceType: ResourceType) {
-        print("Running handleConnect. resourceType is set as:\(resourceType)")
-        networkController.connect(to: server, as: user, password: password, resourceType: resourceType)
-    }
+//    func handleConnect(resourceType: ResourceType) {
+//        print("Running handleConnect. resourceType is set as:\(resourceType)")
+//        networkController.connect(to: server, as: user, password: password, resourceType: resourceType)
+//    }
 }
 

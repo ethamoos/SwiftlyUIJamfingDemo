@@ -62,17 +62,17 @@ struct LoginView: View {
                     
                         .multilineTextAlignment(.trailing)
                     
-                    HStack {
-                        Spacer()
-                        Label("Resource", systemImage: "xserve")
-                    }
-                    
-                    Picker("", selection: $selectedResourceType) {
-                        ForEach(resourceCaseList, id: \.self) {
-                            Text(String(describing: $0))
-                        }
-                        .padding([.leading,.trailing, .bottom])
-                    }
+//                    HStack {
+//                        Spacer()
+//                        Label("Resource", systemImage: "xserve")
+//                    }
+//                    
+//                    Picker("", selection: $selectedResourceType) {
+//                        ForEach(resourceCaseList, id: \.self) {
+//                            Text(String(describing: $0))
+//                        }
+//                        .padding([.leading,.trailing, .bottom])
+//                    }
                     
                     HStack {
                         Spacer()

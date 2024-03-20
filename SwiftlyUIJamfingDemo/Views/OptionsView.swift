@@ -31,7 +31,7 @@ struct OptionsView: View {
                 
                 
                 
-                if networkController.computers.count > 0 {
+                if networkController.allComputers.count > 0 {
                     
                     NavigationView {
                         List {
@@ -62,15 +62,27 @@ struct OptionsView: View {
             }
             .listStyle(.sidebar)
             .onAppear {
-                handleConnect(resourceType: selectedResourceType)
+                
+                 Task {
+                
+                do {
+                    try await networkController.getToken(server: server, user: user, password: password)
+                    try await networkController.getComputers(server: server)
+                } catch {
+                    print("Error fetching basic computers")
+                    print(error)
+                }
+            }
+
+//                handleConnect(resourceType: selectedResourceType)
             }
         }
     }
     
     
-    func handleConnect(resourceType: ResourceType) {
-        print("Running handleConnect. resourceType is:\(resourceType)")
-        networkController.connect(to: server, as: user, password: password, resourceType: resourceType)
-    }
+//    func handleConnect(resourceType: ResourceType) {
+//        print("Running handleConnect. resourceType is:\(resourceType)")
+//        networkController.connect(to: server, as: user, password: password, resourceType: resourceType)
+//    }
 }
 
