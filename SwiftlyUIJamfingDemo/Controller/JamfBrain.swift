@@ -9,11 +9,16 @@ import Foundation
 import SwiftUI
 
 
-class JamfBrain: ObservableObject {
+//class JamfBrain: ObservableObject {
+    
+    @MainActor class JamfBrain: ObservableObject {
+
     
     @Published var status: String = ""
     @Published var authToken = ""
     @Published var computers: [Computer] = []
+    @Published var allComputers: [Computer] = []
+
     
     @Published var computersBasic: [Computers.ComputerResponse] = []
     @Published var allComputersBasic: ComputerBasic = ComputerBasic(computers: [])
@@ -32,6 +37,26 @@ class JamfBrain: ObservableObject {
         let expires: String
     }
     
+    
+    //    #################################################################################
+    //    OLD REQUEST METHOD
+    //    #################################################################################
+
+
+    
+    func connect(to server: String, as user: String, password: String, resourceType: ResourceType) {
+        
+        let resourcePath = getURLFormat(data: (resourceType))
+        
+        if let serverURL = URL(string: server) {
+            let url = serverURL.appendingPathComponent("JSSResource").appendingPathComponent(resourcePath)
+            print("Running connect function - url is set as:\(url)")
+            print("resourceType is set as:\(resourceType)")
+            request(url: url, as: user, password: password, resourceType: resourceType)
+            appendStatus("Connecting to \(url)...")
+        }
+    }
+    
     struct ComputersReply: Codable {
         
         let computers: [Computer]
@@ -47,12 +72,159 @@ class JamfBrain: ObservableObject {
         }
     }
     
+    func request(url: URL, as user: String, password: String, resourceType: ResourceType) {
+        
+        atSeparationLine()
+        print("Running request function - resourceType is set as:\(resourceType)")
+        print("URL is set as:\(url)")
+        atSeparationLine()
+        
+        let loginData = "\(user):\(password)".data(using: String.Encoding.utf8)
+        let base64LoginString = loginData!.base64EncodedString()
+        let headers = [
+            "Accept": "application/json",
+            "Authorization": "Basic \(base64LoginString)"
+        ]
+        
+        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+        request.allHTTPHeaderFields = headers
+        
+        let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data, let response = response {
+                
+                self.separationLine()
+                print("Running request")
+
+                self.doubleSeparationLine()
+                print("Doing processing of request")
+                
+                if resourceType == ResourceType.computer {
+                    print("Resource type is set in request to computer")
+                    self.processComputer(data: data, response: response, resourceType: "computer")
+                }
+                
+            } else {
+                var text = "\n\nFailed."
+                if let error = error {
+                    text += " \(error)."
+                }
+                self.appendStatus(text)
+            }
+        }
+        dataTask.resume()
+    }
+    
+    func processComputer(data: Data, response: URLResponse, resourceType: String) {
+        
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        print("Running: processComputer function")
+        separationLine()
+        let decoded = ComputersReply.decode(data)
+        separationLine()
+        //        print("Processed computers data is:")
+        //        print(String(data: data, encoding: .utf8)!)
+        //        print("Decoded is:\(decoded)")
+        print("resourceType is:\(String(resourceType))")
+        
+        switch decoded {
+        case .success(let computers):
+            receivedComputers(computers: computers)
+            //            print("Computers are:\(computers)")
+            
+        case .failure(let error):
+            appendStatus("Corrupt data. \(response) \(error)")
+        }
+    }
+    
+    func receivedComputers(computers: [Computer]) {
+        DispatchQueue.main.async {
+            self.computers = computers
+            self.status = "Computers retrieved"
+        }
+    }
+    
+    
     func appendStatus(_ string: String) {
         DispatchQueue.main.async { // need to modify status on the main queue
             self.status += string
             self.status += "\n\n"
         }
     }
+   
+    
+    
+    //    #################################################################################
+    //    TRY AWAIT METHOD
+    //    #################################################################################
+
+    
+    
+    func getComputersBasic(server: String) async throws {
+        let jamfURLQuery = server + "/JSSResource/computers/subset/basic"
+        
+        let url = URL(string: jamfURLQuery)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        separationLine()
+        print("Running func: getComputersBasic")
+        print("jamfURLQuery is: \(jamfURLQuery)")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            print("Code not 200")
+            throw NetError.badResponseCode
+        }
+        separationLine()
+        print("processDetail Json data as text is:")
+        print(String(data: data, encoding: .utf8)!)
+        let decoder = JSONDecoder()
+        
+        
+        self.allComputersBasic = try decoder.decode(ComputerBasic.self, from: data)
+        
+        DispatchQueue.main.async {
+            
+            self.allComputersBasicDict = self.allComputersBasic.computers
+        }
+    }
+    
+    func getComputers(server: String) async throws {
+        let jamfURLQuery = server + "/JSSResource/computers"
+        
+        let url = URL(string: jamfURLQuery)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        separationLine()
+        print("Running func: getComputersBasic")
+        print("jamfURLQuery is: \(jamfURLQuery)")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            print("Code not 200")
+            throw NetError.badResponseCode
+        }
+        separationLine()
+        print("allComputers Json data as text is:")
+        print(String(data: data, encoding: .utf8)!)
+        let decoder = JSONDecoder()
+        
+        
+//        DispatchQueue.main.async {
+            
+            self.allComputers = try decoder.decode([Computer].self, from: data)
+//        }
+    }
+    
+    
+    //    #################################################################################
+    //    VARIOUS FUNCTIONS
+    //    #################################################################################
+
+    
     
     func separationLine() {
         print("------------------------------------------------------------------")
@@ -68,18 +240,7 @@ class JamfBrain: ObservableObject {
         print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     }
     
-    func connect(to server: String, as user: String, password: String, resourceType: ResourceType) {
-        
-        let resourcePath = getURLFormat(data: (resourceType))
-        
-        if let serverURL = URL(string: server) {
-            let url = serverURL.appendingPathComponent("JSSResource").appendingPathComponent(resourcePath)
-            print("Running connect function - url is set as:\(url)")
-            print("resourceType is set as:\(resourceType)")
-            request(url: url, as: user, password: password, resourceType: resourceType)
-            appendStatus("Connecting to \(url)...")
-        }
-    }
+ 
     
     
     func debugSomething(dataThing: Any) {
@@ -127,112 +288,6 @@ class JamfBrain: ObservableObject {
     }
     
     
-    func processComputer(data: Data, response: URLResponse, resourceType: String) {
-        
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        print("Running: processComputer function")
-        separationLine()
-        let decoded = ComputersReply.decode(data)
-        separationLine()
-        //        print("Processed computers data is:")
-        //        print(String(data: data, encoding: .utf8)!)
-        //        print("Decoded is:\(decoded)")
-        print("resourceType is:\(String(resourceType))")
-        
-        switch decoded {
-        case .success(let computers):
-            receivedComputers(computers: computers)
-            //            print("Computers are:\(computers)")
-            
-        case .failure(let error):
-            appendStatus("Corrupt data. \(response) \(error)")
-        }
-    }
-    
-    
-    func request(url: URL, as user: String, password: String, resourceType: ResourceType) {
-        
-        atSeparationLine()
-        print("Running request function - resourceType is set as:\(resourceType)")
-        print("URL is set as:\(url)")
-        atSeparationLine()
-        
-        let loginData = "\(user):\(password)".data(using: String.Encoding.utf8)
-        let base64LoginString = loginData!.base64EncodedString()
-        let headers = [
-            "Accept": "application/json",
-            "Authorization": "Basic \(base64LoginString)"
-        ]
-        
-        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
-        request.allHTTPHeaderFields = headers
-        
-        let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data, let response = response {
-                
-                self.separationLine()
-                print("Running request")
-                //                print("request data is:")
-                //                print(String(data: data, encoding: .utf8)!)
-                
-                
-                self.doubleSeparationLine()
-                print("Doing processing of request")
-                
-                if resourceType == ResourceType.computer {
-                    print("Resource type is set in request to computer")
-                    self.processComputer(data: data, response: response, resourceType: "computer")
-                }
-                
-            } else {
-                var text = "\n\nFailed."
-                if let error = error {
-                    text += " \(error)."
-                }
-                self.appendStatus(text)
-            }
-        }
-        dataTask.resume()
-    }
-    
-    
-    func receivedComputers(computers: [Computer]) {
-        DispatchQueue.main.async {
-            self.computers = computers
-            self.status = "Computers retrieved"
-        }
-    }
-    
-    func getComputersBasic(server: String) async throws {
-        let jamfURLQuery = server + "/JSSResource/computers/subset/basic"
-        
-        let url = URL(string: jamfURLQuery)!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        separationLine()
-        print("Running func: getComputersBasic")
-        print("jamfURLQuery is: \(jamfURLQuery)")
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            print("Code not 200")
-            throw NetError.badResponseCode
-        }
-        separationLine()
-        print("processDetail Json data as text is:")
-        print(String(data: data, encoding: .utf8)!)
-        let decoder = JSONDecoder()
-        
-        
-        self.allComputersBasic = try decoder.decode(ComputerBasic.self, from: data)
-        
-        DispatchQueue.main.async {
-            
-            self.allComputersBasicDict = self.allComputersBasic.computers
-        }
-    }
 }
 
 
