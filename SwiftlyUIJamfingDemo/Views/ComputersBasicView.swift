@@ -13,7 +13,7 @@ struct ComputersBasicView: View {
 //    @State var selection: [Computers.ComputerResponse] = []
     @State var selection = Set<ComputerBasicRecord>()
 
-    @EnvironmentObject var networkController: JamfBrain
+    @EnvironmentObject var networkController: NetBrain
     
     @State var currentDetailedPolicy: PolicyCodable? = nil
     

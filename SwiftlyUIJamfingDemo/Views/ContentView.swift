@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject var networkController: JamfBrain
+    @EnvironmentObject var networkController: NetBrain
     
 //  Set a default view
     @State var selectedResourceType:ResourceType = ResourceType.computer

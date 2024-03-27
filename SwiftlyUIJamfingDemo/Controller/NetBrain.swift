@@ -1,5 +1,5 @@
 //
-//  JamfBrain.swift
+//  NetBrain.swift
 //  SwiftlyUIJamfingDemo
 //
 //  Created by Amos Deane on 01/06/2023.
@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 
-//class JamfBrain: ObservableObject {
+//class NetBrain: ObservableObject {
     
-    @MainActor class JamfBrain: ObservableObject {
+    @MainActor class NetBrain: ObservableObject {
 
     
     @Published var status: String = ""

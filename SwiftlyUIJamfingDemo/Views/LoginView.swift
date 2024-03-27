@@ -26,7 +26,7 @@ struct LoginView: View {
     @AppStorage("user") var user = ""
     @AppStorage("password") var password = ""
     
-    @EnvironmentObject var networkController: JamfBrain
+    @EnvironmentObject var networkController: NetBrain
     
     var body: some View {
         
@@ -62,17 +62,17 @@ struct LoginView: View {
                     
                         .multilineTextAlignment(.trailing)
                     
-                    HStack {
-                        Spacer()
-                        Label("Resource", systemImage: "xserve")
-                    }
+//                    HStack {
+//                        Spacer()
+//                        Label("Resource", systemImage: "xserve")
+//                    }
                     
-                    Picker("", selection: $selectedResourceType) {
-                        ForEach(resourceCaseList, id: \.self) {
-                            Text(String(describing: $0))
-                        }
-                        .padding([.leading,.trailing, .bottom])
-                    }
+//                    Picker("", selection: $selectedResourceType) {
+//                        ForEach(resourceCaseList, id: \.self) {
+//                            Text(String(describing: $0))
+//                        }
+//                        .padding([.leading,.trailing, .bottom])
+//                    }
                     
                     HStack {
                         Spacer()
@@ -85,7 +85,7 @@ struct LoginView: View {
                         HStack() {
                             Text("Go")
                         }
-                        .padding([.leading,.trailing, .bottom])
+//                        .padding(.all)
                     }
                     .padding()
                 }

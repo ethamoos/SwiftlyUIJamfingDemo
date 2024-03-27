@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OptionsView: View {
     
-    @EnvironmentObject var networkController: JamfBrain
+    @EnvironmentObject var networkController: NetBrain
     
     @State var prestageID = ""
     @State var serial = ""

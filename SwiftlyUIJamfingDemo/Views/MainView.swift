@@ -16,7 +16,7 @@ struct MainView: View {
     @State var computers: [Computer] = []
     @State var selection: [Computer] = []
     
-    @EnvironmentObject var networkController: JamfBrain
+    @EnvironmentObject var networkController: NetBrain
         
     var body: some View {
         

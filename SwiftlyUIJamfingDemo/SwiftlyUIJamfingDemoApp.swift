@@ -13,10 +13,10 @@ import SwiftUI
 
 struct SwiftlyUIJamfingDemoApp: App {
     
-    let networkController: JamfBrain
+    let networkController: NetBrain
     
     init() {
-        self.networkController = JamfBrain()
+        self.networkController = NetBrain()
     }
 
     var body: some Scene {
