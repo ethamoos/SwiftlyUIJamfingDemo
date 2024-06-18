@@ -85,7 +85,7 @@ struct LoginView: View {
                         HStack() {
                             Text("Go")
                         }
-                        .padding([.leading,.trailing, .bottom])
+//                        .padding([.leading,.trailing, .bottom])
                     }
                     .padding()
                 }

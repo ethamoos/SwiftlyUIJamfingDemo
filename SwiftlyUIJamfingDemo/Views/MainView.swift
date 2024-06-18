@@ -49,7 +49,7 @@ struct MainView: View {
             Spacer()
         }
     }
-        .frame(width: 800, height: 500, alignment: .leading)
+//        .frame(width: 800, height: 500, alignment: .leading)
         .onAppear {
             print("ComputerView appeared. Running onAppear")
             print("\(selectedResourceType) View appeared - connecting")

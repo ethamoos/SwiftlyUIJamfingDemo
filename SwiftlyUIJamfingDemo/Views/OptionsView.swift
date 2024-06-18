@@ -34,9 +34,9 @@ struct OptionsView: View {
                                 Text("Computers")
                             }
                             
-                            NavigationLink(destination: MainView(selectedResourceType: ResourceType.computer, server: server, user: user, password: password)) {
-                                Text("Show")
-                            }
+//                            NavigationLink(destination: MainView(selectedResourceType: ResourceType.computer, server: server, user: user, password: password)) {
+//                                Text("Show")
+//                            }
                             
                             
                             NavigationLink(destination: ContentView(selectedResourceType: selectedResourceType, server: server, user: user, password: password)) {
